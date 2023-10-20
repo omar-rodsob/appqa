@@ -2,6 +2,7 @@ import { interpret } from "xstate";
 import { MemoryRouter } from "react-router-dom";
 import SignInForm from "./SignInForm";
 import { authMachine } from "../machines/authMachine";
+export const appUrl = process.env.APP_URL;
 
 describe("SignInForm", () => {
   let authService;
@@ -10,7 +11,7 @@ describe("SignInForm", () => {
     authService.start();
 
     expect(authService.state.value).to.equal("unauthorized");
-    cy.intercept("POST", "http://localhost:3001/login", {
+    cy.intercept("POST", "${appUrl}:3001/login", {
       user: {
         id: "t45AiwidW",
         uuid: "6383f84e-b511-44c5-a835-3ece1d781fa8",

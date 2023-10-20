@@ -5,6 +5,7 @@ import { httpClient } from "../utils/asyncUtils";
 import { User, TransactionCreatePayload } from "../models";
 import { authService } from "./authMachine";
 import { backendPort } from "../utils/portUtils";
+export const appUrl = process.env.APP_URL;
 
 export interface CreateTransactionMachineSchema {
   states: {
@@ -18,7 +19,7 @@ const transactionDataMachine = dataMachine("transactionData").withConfig({
   services: {
     createData: async (ctx, event: any) => {
       const payload = omit("type", event);
-      const resp = await httpClient.post(`http://localhost:${backendPort}/transactions`, payload);
+      const resp = await httpClient.post(`${appUrl}:${backendPort}/transactions`, payload);
       authService.send("REFRESH");
       return resp.data;
     },

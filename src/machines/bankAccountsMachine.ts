@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import { dataMachine } from "./dataMachine";
 import { httpClient } from "../utils/asyncUtils";
 import { backendPort } from "../utils/portUtils";
+export const appUrl = process.env.APP_URL;
 
 const listBankAccountQuery = gql`
   query ListBankAccount {
@@ -48,7 +49,7 @@ const createBankAccountMutation = gql`
 export const bankAccountsMachine = dataMachine("bankAccounts").withConfig({
   services: {
     fetchData: async (ctx, event: any) => {
-      const resp = await httpClient.post(`http://localhost:${backendPort}/graphql`, {
+      const resp = await httpClient.post(`${appUrl}:${backendPort}/graphql`, {
         operationName: "ListBankAccount",
         query: listBankAccountQuery.loc?.source.body,
       });
@@ -57,7 +58,7 @@ export const bankAccountsMachine = dataMachine("bankAccounts").withConfig({
     },
     deleteData: async (ctx, event: any) => {
       const payload = omit("type", event);
-      const resp = await httpClient.post(`http://localhost:${backendPort}/graphql`, {
+      const resp = await httpClient.post(`${appUrl}:${backendPort}/graphql`, {
         operationName: "DeleteBankAccount",
         query: deleteBankAccountMutation.loc?.source.body,
         variables: payload,
@@ -66,7 +67,7 @@ export const bankAccountsMachine = dataMachine("bankAccounts").withConfig({
     },
     createData: async (ctx, event: any) => {
       const payload = omit("type", event);
-      const resp = await httpClient.post(`http://localhost:${backendPort}/graphql`, {
+      const resp = await httpClient.post(`${appUrl}:${backendPort}/graphql`, {
         operationName: "CreateBankAccount",
         query: createBankAccountMutation.loc?.source.body,
         variables: payload,

@@ -28,7 +28,7 @@ import { frontendPort, getBackendPort } from "../src/utils/portUtils";
 require("dotenv").config();
 
 const corsOption = {
-  origin: `http://localhost:${frontendPort}`,
+  origin: `https://appqa.vercel.app:${frontendPort}`,
   credentials: true,
 };
 
