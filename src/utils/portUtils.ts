@@ -9,7 +9,7 @@ export const getBackendPort = async () => {
   return detect(Number(backendPort))
     .then((_port) => {
       if (Number(backendPort) === _port) {
-        console.log(chalk.green(`Backend server running at ${appUrl}:${backendPort}`));
+        console.log(chalk.green(`Backend server running at http://localhost:${backendPort}`));
         return Number(backendPort);
       }
 

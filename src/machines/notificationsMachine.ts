@@ -8,7 +8,7 @@ export const notificationsMachine = dataMachine("notifications").withConfig({
   services: {
     fetchData: async (ctx, event: any) => {
       const payload = omit("type", event);
-      const resp = await httpClient.get(`${appUrl}:${backendPort}/notifications`, {
+      const resp = await httpClient.get(`http://localhost:${backendPort}/notifications`, {
         params: !isEmpty(payload) && event.type === "FETCH" ? payload : undefined,
       });
       return resp.data;
@@ -16,7 +16,7 @@ export const notificationsMachine = dataMachine("notifications").withConfig({
     updateData: async (ctx, event: any) => {
       const payload = omit("type", event);
       const resp = await httpClient.patch(
-        `${appUrl}:${backendPort}/notifications/${payload.id}`,
+        `http://localhost:${backendPort}/notifications/${payload.id}`,
         payload
       );
       return resp.data;
