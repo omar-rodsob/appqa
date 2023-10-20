@@ -10,9 +10,13 @@ export const transactionDetailMachine = dataMachine("transactionData").withConfi
       const payload = omit("type", event);
       const contextTransactionId = !isEmpty(ctx.results) && first(ctx.results)["id"];
       const transactionId = contextTransactionId || payload.transactionId;
+<<<<<<< HEAD
       const resp = await httpClient.get(
         `http://localhost:${backendPort}/transactions/${transactionId}`
       );
+=======
+      const resp = await httpClient.get(`${appUrl}:${backendPort}/transactions/${transactionId}`);
+>>>>>>> 5cc4321d88288acf838b90cc0f3afaeafefeb8f1
       // @ts-ignore
       return { results: [resp.data.transaction] };
     },

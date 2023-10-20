@@ -1,5 +1,4 @@
 const createProxyMiddleware = require("http-proxy-middleware");
-export const appUrl = process.env.APP_URL;
 require("dotenv").config();
 
 module.exports = function (app) {
