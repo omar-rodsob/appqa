@@ -156,7 +156,7 @@ export const authMachine = Machine<AuthMachineContext, AuthMachineSchema, AuthMa
       },
       performLogin: async (ctx, event) => {
         return await httpClient
-          .post(`https://appqa.vercel.app:${backendPort}/login`, event)
+          .post(`http://localhost:${backendPort}/login`, event)
           .then(({ data }) => {
             history.push("/");
             return data;
